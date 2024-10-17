@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <header>
+        <h1>Customer Management System</h1>
+    </header>
+
+    <main>
+        <!-- Customer List -->
+        <section id="customer">
+            <h2>Customers</h2>
+            <ul id="customer-list">
+                {{#each customers}}
+                    <li data-customer-id="{{this.customer_id}}">
+                        <strong>{{this.name}}</strong> - {{this.email}} - {{this.phone}}
+                        <button class="edit-btn">Edit</button>
+                        <button class="delete-btn">Delete</button>
+                    </li>
+                {{else}}
+                    <li>No customers found.</li>
+                {{/each}}
+            </ul>
+        </section>
+
+        <!-- Create Customer Form -->
+        <section id="create-customer">
+            <h2>Create New Customer</h2>
+            <form action="/create-customer" method="POST">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone" required>
+
+                <button type="submit">Add Customer</button>
+            </form>
+        </section>
+
+        <!-- Product List -->
+        <section id="products">
+            <h2>Products</h2>
+            <ul>
+                {{#each products}}
+                    <li>
+                        <strong>{{this.product_name}}</strong> - ${{this.price}} - Stock: {{this.stock_quantity}}
+                    </li>
+                {{else}}
+                    <li>No products found.</li>
+                {{/each}}
+            </ul>
+        </section>
+
+        <!-- Invoice List -->
+        <section id="invoices">
+            <h2>Invoices</h2>
+            <ul>
+                {{#each invoices}}
+                    <li>
+                        <strong>Invoice ID: {{this.invoice_id}}</strong> - Customer ID: {{this.customer_id}} - Product ID: {{this.product_id}} - Quantity: {{this.quantity}} - Total: ${{this.total_amount}} - Date: {{this.date}}
+                    </li>
+                {{else}}
+                    <li>No invoices found.</li>
+                {{/each}}
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Customer Management System</p>
+    </footer>
+
+    <!-- Link to external script file -->
+    <script src="script.js"></script>
+</body>
+</html>
