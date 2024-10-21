@@ -1,0 +1,25 @@
+{{#extends "base"}}
+{{#block "title"}} test{{/block}}
+{{#block "body"}}
+<h2>{{#if invoice}}Edit Invoice{{else}}Add Invoice{{/if}}</h2>
+<form action="{{#if invoice}}/invoices/edit/{{invoice.invoice_id}}{{else}}/invoices/new{{/if}}" method="POST">
+    <label for="customer_id">Customer ID:</label>
+    <input type="number" id="customer_id" name="customer_id" value="{{invoice.customer_id}}" required>
+
+    <label for="product_id">Product ID:</label>
+    <input type="number" id="product_id" name="product_id" value="{{invoice.product_id}}" required>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" value="{{invoice.quantity}}" required>
+
+    <label for="total_amount">Total Amount:</label>
+    <input type="number" step="0.01" id="total_amount" name="total_amount" value="{{invoice.total_amount}}" required>
+
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" value="{{invoice.date}}" required>
+
+    <button type="submit">{{#if invoice}}Update{{else}}Create{{/if}}</button>
+</form>
+<a href="/invoices">Cancel</a>
+{{/block}}
+{{/extends}}

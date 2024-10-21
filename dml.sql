@@ -1,4 +1,4 @@
--- Insert sample data into the Superhero table
+-- Insert sample data into the Customer table
 INSERT INTO Customer (customer_id, name, email, phone) VALUES
 (10001, 'Spider-Man', 'spiderman@example.com', '123-456-7890'),
 (10002, 'Wonder Woman', 'wonderwoman@example.com', '987-654-3210'),
@@ -11,7 +11,7 @@ INSERT INTO Product (product_id, product_name, price, stock_quantity) VALUES
 (20003, 'Gizmo C', 30.00, 150);
 
 -- Insert sample data into the Invoice table
-INSERT INTO Invoice (invoice_id, customer_id, product_id, quantity, total_amount, date) VALUES
+INSERT INTO Invoice (invoice_id, customer_id, product_id, quantity, total_amount, datetime) VALUES
 (30001, 10001, 20001, 2, 31.98, '2024-10-01'),
 (30002, 10002, 20002, 1, 25.50, '2024-10-05'),
 (30003, 10001, 20003, 3, 90.00, '2024-10-07'),

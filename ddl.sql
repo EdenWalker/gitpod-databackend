@@ -29,7 +29,10 @@
 -- alter table students add constraint fk_students_parents
 -- foreign key (parent_id) references parents(parent_id)
 
--- Create the Superhero table
+create database company;
+use company;
+
+-- Create the customer table
 CREATE TABLE Customer (
     customer_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,

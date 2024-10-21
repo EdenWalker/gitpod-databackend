@@ -1,0 +1,67 @@
+{{#extends "base"}}
+{{#block "title"}} test{{/block}}
+{{#block "body"}}
+
+<h2>Customers</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Customer ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each Customers}}
+        <tr>
+            <td>{{customer_id}}</td>
+            <td>{{name}}</td>
+            <td>{{email}}</td>
+            <td>{{phone}}</td>
+            <td>
+                <a href="/customers/edit/{{customer_id}}">Edit</a>
+                <form action="/customers/delete/{{customer_id}}" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<a href="/customers/new">Add New Customer</a>
+
+
+app.get('/', (req, res) => {
+    const customerQuery = 'SELECT * FROM Customer';
+    const productQuery = 'SELECT * FROM Product';
+    const invoiceQuery = 'SELECT * FROM Invoice';
+
+    // Execute queries
+    connection.query(customerQuery, (err, customers) => {
+        if (err) {
+            return res.status(500).send('Error fetching customers');
+        }
+        connection.query(productQuery, (err, products) => {
+            if (err) {
+                return res.status(500).send('Error fetching products');
+            }
+            connection.query(invoiceQuery, (err, invoices) => {
+                if (err) {
+                    return res.status(500).send('Error fetching invoices');
+                }
+
+                // Render the template with the fetched data
+                res.render('customer-dashboard', {
+                    title: 'Customer Dashboard',
+                    customers,
+                    products,
+                    invoices
+                });
+            });
+        });
+    });
+});
+{{/block}}
+{{/extends}}

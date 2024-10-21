@@ -1,0 +1,38 @@
+{{#extends "base"}}
+{{#block "title"}} test{{/block}}
+{{#block "body"}}
+<h2>Invoices</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Invoice ID</th>
+            <th>Customer ID</th>
+            <th>Product ID</th>
+            <th>Quantity</th>
+            <th>Total Amount</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each invoices}}
+        <tr>
+            <td>{{invoice_id}}</td>
+            <td>{{customer_id}}</td>
+            <td>{{product_id}}</td>
+            <td>{{quantity}}</td>
+            <td>{{total_amount}}</td>
+            <td>{{date}}</td>
+            <td>
+                <a href="/invoices/edit/{{invoice_id}}">Edit</a>
+                <form action="/invoices/delete/{{invoice_id}}" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<a href="/invoices/new">Add New Invoice</a>
+{{/block}}
+{{/extends}}

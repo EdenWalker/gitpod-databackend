@@ -1,0 +1,22 @@
+{{#extends "base"}}
+{{#block "title"}} test{{/block}}
+{{#block "body"}}
+<h2>{{#if customer}}Edit Customer{{else}}Add Customer{{/if}}</h2>
+<form action="{{#if customer}}/customers/edit/{{customer.customer_id}}{{else}}/customers/new{{/if}}" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="{{customer.name}}" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="{{customer.email}}" required>
+
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" value="{{customer.phone}}" required>
+
+    <button type="submit">{{#if customer}}Update{{else}}Create{{/if}}</button>
+</form>
+
+
+<a href="/customers">Cancel</a>
+
+{{/block}}
+{{/extends}}
