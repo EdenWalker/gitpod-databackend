@@ -1,6 +1,5 @@
 {{#extends "base"}}
-{{#block "title"}} test{{/block}}
-{{#block "body"}}
+{{#block "content"}}
 <h2>Invoices</h2>
 <table>
     <thead>
@@ -15,14 +14,14 @@
         </tr>
     </thead>
     <tbody>
-        {{#each invoices}}
+    {{#each invoices}}
         <tr>
             <td>{{invoice_id}}</td>
             <td>{{customer_id}}</td>
             <td>{{product_id}}</td>
             <td>{{quantity}}</td>
             <td>{{total_amount}}</td>
-            <td>{{date}}</td>
+            <td>{{datetime}}</td>
             <td>
                 <a href="/invoices/edit/{{invoice_id}}">Edit</a>
                 <form action="/invoices/delete/{{invoice_id}}" method="POST" style="display:inline;">
@@ -34,5 +33,7 @@
     </tbody>
 </table>
 <a href="/invoices/new">Add New Invoice</a>
+
+
 {{/block}}
 {{/extends}}

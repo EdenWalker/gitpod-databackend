@@ -1,7 +1,6 @@
 {{#extends "base"}}
-{{#block "title"}} test{{/block}}
-{{#block "body"}}
-<h2>Customers</h2>
+{{#block "content"}}
+<h2>customer</h2>
 
            
 <table>
@@ -15,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        {{#each customers}}
+        {{#each customer}}
         <tr>
             <td>{{customer_id}}</td>
             <td>{{name}}</td>
@@ -34,5 +33,7 @@
 
 
 <a href="/customers/new">Add New Customer</a>
+
+
 {{/block}}
 {{/extends}}

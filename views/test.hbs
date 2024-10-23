@@ -1,0 +1,21 @@
+{{#extends "base"}}
+{{#block "content"}}
+<h1>customer</h1>
+<table class="table">
+    <tr>
+        <th>Customer ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+    </tr>
+    {{#each customer}}
+    <tr>
+      <td>{{customer_id}}</td>
+            <td>{{name}}</td>
+            <td>{{email}}</td>
+            <td>{{phone}}</td>
+    </tr>
+    {{/each}}
+</table>
+{{/block}}
+{{/extends}}

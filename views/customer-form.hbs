@@ -1,6 +1,6 @@
+{{! customer-form.hbs }}
 {{#extends "base"}}
-{{#block "title"}} test{{/block}}
-{{#block "body"}}
+{{#block "content"}}
 <h2>{{#if customer}}Edit Customer{{else}}Add Customer{{/if}}</h2>
 <form action="{{#if customer}}/customers/edit/{{customer.customer_id}}{{else}}/customers/new{{/if}}" method="POST">
     <label for="name">Name:</label>
@@ -17,6 +17,24 @@
 
 
 <a href="/customers">Cancel</a>
-
+<h1>customer</h1>
+<table class="table">
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Rating</th>
+        <th>Company</th>
+    </tr>
+    {{#each customer}}
+    <tr>
+        <td>{{first_name}}</td>
+        <td>{{last_name}}</td>
+        <td>{{rating}}</td>
+        <td>{{name}}</td>
+    </tr>
+    {{/each}}
+</table>
 {{/block}}
+
+
 {{/extends}}

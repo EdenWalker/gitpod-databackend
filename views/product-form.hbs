@@ -1,6 +1,5 @@
 {{#extends "base"}}
-{{#block "title"}} test{{/block}}
-{{#block "body"}}
+{{#block "content"}}
 <h2>{{#if product}}Edit Product{{else}}Add Product{{/if}}</h2>
 <form action="{{#if product}}/products/edit/{{product.product_id}}{{else}}/products/new{{/if}}" method="POST">
     <label for="product_name">Product Name:</label>
@@ -15,5 +14,23 @@
     <button type="submit">{{#if product}}Update{{else}}Create{{/if}}</button>
 </form>
 <a href="/products">Cancel</a>
+<h1>customer</h1>
+<table class="table">
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Rating</th>
+        <th>Company</th>
+    </tr>
+    {{#each customer}}
+    <tr>
+        <td>{{first_name}}</td>
+        <td>{{last_name}}</td>
+        <td>{{rating}}</td>
+        <td>{{name}}</td>
+    </tr>
+    {{/each}}
+</table>
+
 {{/block}}
 {{/extends}}
