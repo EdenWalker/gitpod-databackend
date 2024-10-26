@@ -11,8 +11,17 @@ INSERT INTO Product (product_id, product_name, price, stock_quantity) VALUES
 (20003, 'Gizmo C', 30.00, 150);
 
 -- Insert sample data into the Invoice table
-INSERT INTO Invoice (invoice_id, customer_id, product_id, quantity, total_amount, datetime) VALUES
+INSERT INTO Invoice (invoice_id, customer_id, product_id, quantity, total_amount, date) VALUES
 (30001, 10001, 20001, 2, 31.98, '2024-10-01'),
 (30002, 10002, 20002, 1, 25.50, '2024-10-05'),
 (30003, 10001, 20003, 3, 90.00, '2024-10-07'),
 (30004, 10003, 20001, 1, 15.99, '2024-10-10');
+
+
+-- Insert sample data into Customer_Product 
+INSERT INTO Customer_Product (customer_id, product_id, purchase_date, quantity) VALUES
+(10001, 20001, '2024-10-01', 2),
+(10001, 20002, '2024-10-02', 1),
+(10002, 20001, '2024-10-03', 1),
+(10003, 20003, '2024-10-04', 3),
+(10002, 20003, '2024-10-05', 2);

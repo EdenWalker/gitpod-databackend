@@ -55,7 +55,16 @@ CREATE TABLE Invoice (
     product_id INT UNSIGNED,
     quantity INT UNSIGNED NOT NULL,
     total_amount DECIMAL(10, 2) NOT NULL,
-    date DATETIME NOT NULL,
+    date DATE NOT NULL,
     FOREIGN KEY (customer_id) REFERENCES Customer(customer_id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE
+);
+CREATE TABLE Customer_Product (
+    customer_id INT UNSIGNED,
+    product_id INT UNSIGNED,
+    purchase_date DATE NOT NULL,
+    quantity INT UNSIGNED NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE,
+    PRIMARY KEY (customer_id, product_id, purchase_date)
 );

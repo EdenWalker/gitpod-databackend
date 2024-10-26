@@ -1,15 +1,16 @@
 {{#extends "base"}}
+{{#block "title"}}Customers{{/block}}
 {{#block "content"}}
-<h2>Invoices</h2>
-<table>
+<h2 class="mb-4">Invoices</h2>
+<table class="table table-striped table-bordered text-center" id="invoicesTable">
     <thead>
         <tr>
-            <th>Invoice ID</th>
-            <th>Customer ID</th>
-            <th>Product ID</th>
-            <th>Quantity</th>
-            <th>Total Amount</th>
-            <th>Date</th>
+            <th><button class="btn btn-link" data-sort="invoice_id">Invoice Number</button></th>
+            <th><button class="btn btn-link" data-sort="name">Customer</button></th>
+            <th><button class="btn btn-link" data-sort="product_name">Product Name</button></th>
+            <th><button class="btn btn-link" data-sort="quantity">Quantity</button></th>
+            <th><button class="btn btn-link" data-sort="total_amount">Total Amount</button></th>            
+            <th><button class="btn btn-link" data-sort="formatted_date">Date</button></th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -17,23 +18,105 @@
     {{#each invoices}}
         <tr>
             <td>{{invoice_id}}</td>
-            <td>{{customer_id}}</td>
-            <td>{{product_id}}</td>
+            <td>{{name}}</td>
+            <td>{{product_name}}</td>
             <td>{{quantity}}</td>
-            <td>{{total_amount}}</td>
-            <td>{{datetime}}</td>
+            <td>${{total_amount}}</td> 
+            <td>{{formatted_date}}</td>
             <td>
-                <a href="/invoices/edit/{{invoice_id}}">Edit</a>
-                <form action="/invoices/delete/{{invoice_id}}" method="POST" style="display:inline;">
-                    <button type="submit">Delete</button>
+                <a href="/invoices/edit/{{invoice_id}}" class="btn btn-info edit-button">Edit</a>
+                <form action="/invoices/delete/{{invoice_id}}" method="POST" class="delete-form" style="display:inline;">
+                    <button class="btn btn-danger" type="submit">Delete</button>
                 </form>
             </td>
         </tr>
-        {{/each}}
+    {{/each}}
     </tbody>
 </table>
-<a href="/invoices/new">Add New Invoice</a>
+<a href="/invoices/new" class="btn btn-primary">Add New Invoice</a>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+        const table = document.getElementById('invoicesTable');
+        const headers = table.querySelectorAll('th button');
+        let ascending = true; // Track the sorting order
 
+        headers.forEach(header => {
+            header.addEventListener('click', () => {
+                const sortKey = header.getAttribute('data-sort');
+                const tbody = table.querySelector('tbody');
+                const rows = Array.from(tbody.rows);
+                const icon = header.querySelector('i');
+
+                // Sort rows based on the selected header
+                rows.sort((a, b) => {
+                    const aValue = a.cells[getCellIndex(sortKey)].textContent.trim();
+                    const bValue = b.cells[getCellIndex(sortKey)].textContent.trim();
+
+                    return ascending 
+                        ? compareValues(aValue, bValue) 
+                        : compareValues(bValue, aValue);
+                });
+
+                // Clear and re-append sorted rows
+                tbody.innerHTML = '';
+                rows.forEach(row => tbody.appendChild(row));
+
+                // Toggle sorting order for the next click
+                ascending = !ascending;
+                if (icon) {
+                    icon.className = ascending ? 'fas fa-sort-up' : 'fas fa-sort-down'; // Update icon class
+                }
+            });
+        });
+
+        function getCellIndex(sortKey) {
+            switch (sortKey) {
+                case 'invoice_id': return 0;
+                case 'name': return 1;
+                case 'product_name': return 2;
+                case 'quantity': return 3;
+                case 'total_amount': return 4;
+                case 'formatted_date': return 5;
+                default: return -1;
+            }
+        }
+
+        function compareValues(a, b) {
+            // Convert to number for quantity and total amount, otherwise compare as strings
+            if (isNaN(a) || isNaN(b)) {
+                return a.localeCompare(b); // String comparison
+            } else {
+                return Number(a) - Number(b); // Number comparison
+            }
+        }
+
+        // Select all delete forms
+        const deleteForms = document.querySelectorAll('.delete-form');
+
+        // Add event listeners to each delete form
+        deleteForms.forEach(form => {
+            form.addEventListener('submit', function (event) {
+                const confirmDelete = confirm('Are you sure you want to delete this invoice?');
+                if (!confirmDelete) {
+                    event.preventDefault(); // Prevent the form from submitting
+                }
+            });
+        });
+
+        // Select all edit buttons
+        const editButtons = document.querySelectorAll('.edit-button');
+
+        // Add event listeners to each edit button
+        editButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                const confirmEdit = confirm('Are you sure you want to edit this invoice?');
+                if (!confirmEdit) {
+                    event.preventDefault(); // Prevent the navigation
+                }
+            });
+        });
+    });
+</script>
 {{/block}}
 {{/extends}}
